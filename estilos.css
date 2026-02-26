@@ -66,19 +66,22 @@
       color: #f3f3f3;
     }
     h3 + ul {
+    text-align: center;
     list-style-type: none;
     padding-left: 0;
+    font-family: 'arial', sans-serif;
     }
     ol[type= A]{
         list-style: none;
         padding-left: 0;
     }
-    .metodos-pago, .metodos-pago ul [type= A] {
+    .metodos-pago, .metodos-pago ul, ol[type= A] {
       list-style-type: none;
       padding-left: 0;
       text-align: center;
+      font-family: 'arial', sans-serif;
     }
-    .metodos-pago li ::before,
+    .metodos-pago li,::before,
     ol[type= A] li ::before {
       content: none !important;
     }

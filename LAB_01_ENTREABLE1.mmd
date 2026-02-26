@@ -1,0 +1,32 @@
+classDiagram
+direction LR
+
+class Cliente {
+  +int IdCliente
+  +string Nombre
+  +string Tipo_compania
+}
+
+class Catalogo_Servicios {
+  +int IdServicio
+  +string NombreServicio
+  +string Detalles
+}
+
+class Cotizacion {
+  +int IdCotizacion
+  +int IdCliente
+  +date Fecha_solicitud
+  +string Estado
+}
+
+class Detalle_Cotizacion {
+  +int IdDetalle
+  +int IdCotizacion
+  +int IdServicio
+  +int Cantidad
+}
+
+Cliente "1" --o "0..*" Cotizacion : solicita
+Cotizacion "1" *-- "1..*" Detalle_Cotizacion : contiene
+Catalogo_Servicios "1" --o "0..*" Detalle_Cotizacion : usado en
