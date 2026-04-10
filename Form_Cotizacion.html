@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JR Electricidad S.R.L</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <!-- Franja azul solo para la imagen -->
+  <div class="banner">
+    <img src="JR.2.png" alt="Logo JR Servicios Eléctricos" class="img-logo">
+  </div>
+
+  <header>
+    <nav class="nav-back">
+      <ul class="nav-back">
+        <li class="menu-back">
+          <a href="#" onclick="history.back(); return false;">Volver atrás</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main style="text-align: center; margin-top: 50px; font-family: Arial,sans-serif;">
+    <h2>JR ELECTRICIDAD S.R.L COTIZACIONES</h2>
+
+    <form action="correo.php" method="POST" id="Form_Cotizaciones">
+      <label for="nombre">Nombre completo:</label><br>
+      <input type="text" id="nombre" name="nombre" required><br><br>
+
+      <label for="correo">Correo electrónico:</label><br>
+      <input type="email" id="correo" name="correo" required><br><br>
+
+      <label for="telefono">Número de teléfono:</label><br>
+      <input type="tel" id="telefono" name="telefono" required><br><br>
+
+      <label for="direccion">Dirección:</label>
+      <input type="text" id="direccion" name="direccion"><br><br>
+
+      <label for="servicio">Tipo de servicio:</label>
+      <select id="servicio" name="servicio">
+        <option value="instalacion">Instalación</option>
+        <option value="mantenimiento">Mantenimiento</option>
+        <option value="reparacion">Reparación</option>
+      </select><br><br>
+
+      <label for="descripcion">Descripción del proyecto:</label><br> 
+      <textarea id="descripcion" name="descripcion" rows="4" cols="50" required></textarea><br><br>
+
+      <label for="fecha">Fecha deseada:</label>
+      <input type="date" id="fecha" name="fecha"><br><br>
+
+      <button type="submit" class="btn">Solicitar Cotización</button>
+    </form>
+  </main>
+
+  <script type="module" src="./Form_Cotizacion.js"></script>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span id="popup-icon"></span>
+      <p id="popup-text"></p>
+      <button id="popup-close">Cerrar</button>
+    </div>
+  </div> 
+</body>
+</html>

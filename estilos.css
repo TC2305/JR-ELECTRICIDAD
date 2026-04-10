@@ -1,7 +1,7 @@
      .btn {
         /* Colores y Fuente */
         background-color: #c5ce9e; 
-        color: #f1f1f1;
+        color: #6e6767;
         font-family: "Arial", sans-serif;
         font-size: 16px;
         font-weight: bold;
@@ -16,12 +16,12 @@
         transition:
           background-color 0.3s ease,
           transform 0.2s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 6px rgba(2, 67, 245, 0.1);
       }
 
       /* Efecto al pasar el mouse */
       .btn:hover {
-        background-color: #d8661b;
+        background-color: #2d2768;
         transform: translateY(-2px); /* Pequeño salto hacia arriba */
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
       }
@@ -31,23 +31,20 @@
         transform: translateY(0);
       }
       .img-logo {
-        max-width: 100%;  /* Esto evita que la imagen sea más ancha que la pantalla */
-         height: auto;     /* Mantiene la proporción para que no se vea estirada */
-        display: block;   /* Elimina espacios extra en la base */
-        margin: 0 auto;   /* Centra la imagen horizontalmente */
+       max-height: 200px; 
       }body{
-      background-color: rgba(64, 90, 77, 0.623);
+      background-color: rgba(255, 255, 255, 0.623);
       margin: 0;
       padding: 0;
      }
 
     
     .title {
-        text-align: center;
-        color: #ffffff93;
-        font-family: 'arial', sans-serif;
-        margin: 0;
-     } 
+    text-align: center;       /* Centra el título */
+    margin-top: 20px;         /* Espacio debajo de la franja azul */
+    color: black; 
+  }
+
       .description {
       font-family: 'Arial';
       font-size: 1em;
@@ -60,32 +57,39 @@
     
     h2, h3 {
       text-align: center;
-      font-size: 1emem;
+      font-size: 1em;
       margin-top: 1em; 
       margin-bottom: 0.2em;
-      color: #f3f3f3;
+      color: #000000;
     }
-    h3 + ul {
-    text-align: center;
-    list-style-type: none;
-    padding-left: 0;
-    font-family: 'arial', sans-serif;
-    }
+  
     ol[type= A]{
         list-style: none;
         padding-left: 0;
     }
-    .metodos-pago, .metodos-pago ul, ol[type= A] {
-      list-style-type: none;
-      padding-left: 0;
-      text-align: center;
-      font-family: 'arial', sans-serif;
-    }
-    .metodos-pago li,::before,
-    ol[type= A] li ::before {
-      content: none !important;
-    }
- 
+    .metodos-pago, .JR-Servicios, .metodos-contacto, .JR-cotizaciones {
+  list-style: none;       /* Quita los bullets */
+  padding: 0;
+  margin: 20px auto;
+  max-width: 800px;
+  text-align: left;       /* Texto alineado a la izquierda */
+  font-family: Arial, sans-serif;
+}
+ .metodos-pago li, .JR-Servicios li, .metodos-contacto li, .JR-cotizaciones li {
+   margin-bottom: 10px;    /* Espacio entre los elementos de la lista */
+   font-size: 1em;
+   color: #000000;
+  background: #ffffff;
+  border: 2px solid #003cff;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.metodos-pago strong, .JR-Servicios strong {
+  color: #0011ff;
+}
     .description ul, .description ol {
       list-style: none;
         padding: 0;
@@ -102,7 +106,25 @@
     .menu-item a {
       display: inline-block;
       padding: 10px 20px;
-      color: #e7a517;
+      color: #002efc;
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      border: 3px solid #ffb20b;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+     
+    .menu-item a:hover {
+      background-color: #0010f3;
+      color: #f8f6f6;
+      transform: scale(1.1);
+    }
+    .menu-back a {    
+      display: inline-block;
+      padding: 10px 20px;
+      color: #0004fd;
       text-decoration: none;
       font-family: 'Arial', sans-serif;
       font-size: 16px;
@@ -111,9 +133,60 @@
       border-radius: 8px;
       transition: all 0.3s ease;
     }
-     
-    .menu-item a:hover {
-      background-color: #ffffff;
-      color: #000000;
+
+    .menu-back a:hover {
+      background-color: #0004ff;
+      color: #ffffff;
       transform: scale(1.1);
     }
+    .nav-back {
+  list-style: none;       /* Quita los bullets de la lista */
+  padding: 0;             
+  margin: 0;              
+  display: flex;          
+  justify-content: left; /* Centra el contenido */
+}
+   .popup {
+  display: none; /* oculto por defecto */
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5); /* fondo semi-transparente */
+}
+
+.popup-content {
+  background: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.popup-content.success {
+  border: 3px solid #28a745;
+  color: #28a745;
+}
+
+.popup-content.error {
+  border: 3px solid #dc3545;
+  color: #dc3545;
+}
+
+#popup-icon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.banner {
+   background-color: blue;   /* Fondo azul */
+  width: 100%;              /* Ocupa todo el ancho de la pantalla */
+  text-align: center;       /* Centra la imagen */
+  padding: 20px 0;    
+}
