@@ -1,5 +1,10 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+header('Content-Type: application/json');
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    echo json_encode(["error" => false, "message" => "Método no permitido."]);
+    exit;}
+
     $nombre = $_POST["nombre"];
     $correo = $_POST["correo"];
     $telefono = $_POST["telefono"];
@@ -19,12 +24,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                "Fecha deseada: $fecha\n\n".
                "Nos pondremos en contacto con usted pronto.\n\nJR Electricidad S.R.L";
 
-    $headers = "From: jrelectricidadsrl@gmail.com";
+    $headers = "From: JR Electricidad jrelectricidadsrl@gmail.com";
 
     // Envía el correo al cliente
-    mail($correo, $asunto, $mensaje, $headers);
-
-    echo "Cotización enviada y correo de confirmación enviado.";
+    
+if (mail($correo, $asunto, $mensaje, $headers)) {
+    echo json_encode([
+        "success" => true,
+        "message" => "Cotización enviada y correo de confirmación enviado."
+    ]);
+} else {
+    echo json_encode([
+        "success" => false,
+        "message" => "Error al enviar el correo"
+    ]);
 }
-?>
+
 

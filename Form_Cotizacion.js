@@ -17,43 +17,67 @@ function mostrarPopup(tipo, texto) {
     popup.style.display = "none";
   };
 
-    setTimeout(() => {
-    popup.style.display = "none";
-  }, 3000)
+     setTimeout(() => popup.style.display = "none", 3000);
 }
 
-document.getElementById("Form_Cotizacion").addEventListener("submit", async function(e) {
-  e.preventDefault();
 
-  const nombre = document.getElementById("nombre").value;
-  const correo = document.getElementById("correo").value;
-  const telefono = document.getElementById("telefono").value;
-  const direccion = document.getElementById("direccion").value;
-  const servicio = document.getElementById("servicio").value;
-  const descripcion = document.getElementById("descripcion").value;
-  const fecha = document.getElementById("fecha").value;
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("Form_Cotizacion");
 
-  const { data, error } = await supabase
-    .from("cotizaciones")
-    .insert([
-      {
-        nombre_cliente: nombre,
-        correo: correo,
-        telefono: telefono,
-        direccion: direccion,
-        servicio: servicio,
-        descripcion: descripcion,
-        fecha_deseada: fecha,
-        estado: "pendiente",
-        fecha_solicitud: new Date().toISOString().split("T")[0]
-      }
-    ]);
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-   if (error) {
-    mostrarPopup("error", "Error al guardar la cotización: " + error.message);
-    console.error(error);
-  } else {
-    mostrarPopup("exito", "Cotización enviada correctamente. ¡Gracias!");
-    document.getElementById("Form_Cotizacion").reset();
+  
+const datos = {
+      nombre: form.nombre.value,
+      correo: form.correo.value,
+      telefono: form.telefono.value,
+      direccion: form.direccion.value,
+      servicio: form.servicio.value,
+      descripcion: form.descripcion.value,
+      fecha: form.fecha.value
+    };
+
+
+  //Guarda en Supabase
+  const { error } = await supabase.from("cotizaciones").insert([{
+    nombre_cliente: datos.nombre,
+    correo: datos.correo,
+    telefono: datos.telefono,
+    direccion: datos.direccion,
+    servicio: datos.servicio,
+    descripcion: datos.descripcion,
+    fecha_deseada: datos.fecha,
+    estado: "pendiente",
+    fecha_solicitud: new Date().toISOString().split("T")[0]
+  }]);
+
+  if (error) {
+    mostrarPopup("error", "Error al guardar la cotización");
+    return;
   }
+
+  //funcion
+  /*
+const response = await fetch(
+      "https://TU_PROYECTO.supabase.co/functions/v1/enviar-cotizacion",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer TU_ANON_KEY`
+        },
+        body: JSON.stringify(datos)
+      }
+    );
+
+    const result = await response.json();
+
+   if (!result.success) {
+      mostrarPopup("error", "Cotización guardada, pero error al enviar correo");
+      return;
+    }*/
+   mostrarPopup("exito", "Cotización enviada correctamente. ¡Gracias!");
+    form.reset();
+  });
 });

@@ -1,14 +1,14 @@
      .btn {
         /* Colores y Fuente */
-        background-color: #c5ce9e; 
-        color: #6e6767;
+        background-color: #ffffff; 
+        color: #002fff;
         font-family: "Arial", sans-serif;
         font-size: 16px;
         font-weight: bold;
 
         /* Dimensiones y Forma */
         padding: 12px 24px;
-        border: rgb(0, 0, 0) 3px solid;
+        border: rgb(255, 187, 0) 3px solid;
         border-radius: 5px;
         cursor: pointer;
 
@@ -21,15 +21,16 @@
 
       /* Efecto al pasar el mouse */
       .btn:hover {
-        background-color: #2d2768;
-        transform: translateY(-2px); /* Pequeño salto hacia arriba */
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      background-color: #0010f3;
+      color: #f8f6f6;
+      transform: scale(1.1);
       }
 
       /* Efecto al hacer clic */
       .btn:active {
         transform: translateY(0);
       }
+      
       .img-logo {
        max-height: 200px; 
       }body{
