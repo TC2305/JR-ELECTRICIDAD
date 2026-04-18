@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JR Electricidad S.R.L</title>
+    <link rel="stylesheet" href="estilos.css">
+      </head>
+  <body>
+     <!-- <button class="btn" onclick="activarEstilos()">Ver antes / después</button>-->
+      <div class="banner">
+    <img src="JR.2.png" alt="Logo JR Servicios Eléctricos" class="img-logo">
+  </div>
+</head>
+<body>
+    <header>
+    <nav class="nav-back">
+      <ul class="nav-back">
+          <li class="menu-back">
+          <a href="#" onclick="history.back(); return false;">Volver atrás</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  
+<main class="container">
+
+    <h3 style="text-align: center; margin-top: 30px;">
+      JR ELECTRICIDAD S.R.L – INGRESO DE CLIENTES
+    </h3>
+
+    <div class="card">
+      <h2>Agregar Cliente</h2>
+
+      <div class="form-grid">
+        <div class="field">
+          <label>Empresa</label>
+          <input type="text" id="txtEmpresa" placeholder="Nombre de la empresa">
+        </div>
+
+        <div class="field">
+          <label>Representante</label>
+          <input type="text" id="txtRepresentante" placeholder="Nombre del representante">
+        </div>
+
+        <div class="field">
+          <label>Correo</label>
+          <input type="email" id="txtCorreo" placeholder="Correo electrónico">
+        </div>
+
+        <div class="field">
+          <label>Teléfono</label>
+          <input type="text" id="txtTelefono" placeholder="Teléfono">
+        </div>
+
+        <div class="field">
+          <label>Dirección</label>
+          <input type="text" id="txtDireccion" placeholder="Dirección">
+        </div>
+
+        <div class="field">
+          <label>Fecha inicio</label>
+          <input type="date" id="txtFechaInicio">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-success" id="btnAdd">Guardar</button>
+        <button class="btn btn-secondary" id="btnCancel">Cancelar</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <input
+        type="text"
+        id="txtSearch"
+        class="search-input"
+        placeholder="Buscar cliente por empresa o representante">
+      <button class="btn btn-primary full" id="btnLoad">Consultar</button>
+    </div>
+
+    <div class="card">
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Empresa</th>
+              <th>Representante</th>
+              <th>Correo</th>
+              <th>Teléfono</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyClientes">
+   
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script type="module" src="./app_clientes.js"></script>
+
+</body>
+</html>

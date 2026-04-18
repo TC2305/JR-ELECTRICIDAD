@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JR Electricidad S.R.L</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <!-- Franja azul solo para la imagen -->
+  <div class="banner">
+    <img src="JR.2.png" alt="Logo JR Servicios Eléctricos" class="img-logo">
+  </div>
+  <header>
+    <nav class="nav-back">
+      <ul class="nav-back">
+          <li class="menu-back">
+          <a href="#" onclick="history.back(); return false;">Volver atrás</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <h3>Detalle de Cotización</h3>
+
+    <div class="card" id="app_detallecotizacion">
+      <!-- JS llena los datos -->
+    </div>
+
+    <div class="card">
+      <button id="btnEnviar" class="btn btn-success">
+        Marcar como enviada
+      </button>
+    </div>
+    
+<div class="card" id="accionesCliente" style="display:none;">
+  <button id="btnAceptar" class="btn btn-success">
+    ✅ Aceptada por el cliente
+  </button>
+
+  <button id="btnRechazar" class="btn btn-secondary">
+    ❌ Rechazada por el cliente
+  </button>
+</div>
+
+
+  </main>
+
+  <script type="module" src="app_detallecotizacion.js"></script>
+</body>
+</html>
