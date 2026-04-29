@@ -88,7 +88,7 @@ btnEnviar.addEventListener("click", async () => {
 btnAceptar.addEventListener("click", async () => {
   if (!confirm("¿El cliente aceptó la cotización?")) return;
 
-  // 1️⃣ actualizar estado
+  // actualizar estado
   const { error } = await supabase
     .from("cotizaciones")
     .update({ estado: "aceptada" })
@@ -99,7 +99,7 @@ btnAceptar.addEventListener("click", async () => {
     return;
   }
 
-  // 2️⃣ crear trabajo
+  // crear trabajo
   await supabase.from("trabajos").insert({
     cotizacion_id: id,
     cliente: cotizacionActual.nombre_cliente,

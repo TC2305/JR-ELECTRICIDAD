@@ -7,27 +7,18 @@ if (!session) {
   window.location.href = "../login.html";
 }
 
-//****************************************
-// Referencias a elementos del DOM
-//****************************************
 // Botones
 const btnAdd = document.getElementById("btnAdd");
 const btnCancel = document.getElementById("btnCancel");
 const btnLoad = document.getElementById("btnLoad");
-
-// Campo de búsqueda
 const txtSearch = document.getElementById("txtSearch");
-
-// Formulario
-
 const txtEmpresa = document.getElementById("txtEmpresa");
 const txtRepresentante = document.getElementById("txtRepresentante");
 const txtCorreo = document.getElementById("txtCorreo");
 const txtTelefono = document.getElementById("txtTelefono");
 const txtDireccion = document.getElementById("txtDireccion");
 const txtFechaInicio = document.getElementById("txtFechaInicio");
-
-
+let clienteEditandoId = null;
 // Tabla
 const tbody = document.getElementById("tbodyClientes");
 
@@ -42,42 +33,94 @@ btnAdd.addEventListener("click", () => guardarCliente());
 btnCancel.addEventListener("click", () => limpiarFormulario());
 btnLoad.addEventListener("click", () => consultarClientes())
 
+
+
 async function guardarCliente() {
-  if (!txtEmpresa.value || !txtRepresentante.value || !txtCorreo.value) {
-    alert("Complete los campos obligatorios");
-    return;
-  }
+  btnAdd.disabled = true;
 
-  const { error } = await supabase
-    .from("clientes")
-    .insert([{
-      empresa: txtEmpresa.value,
-      representante: txtRepresentante.value,
-      correo: txtCorreo.value,
-      telefono: txtTelefono.value,
-      direccion: txtDireccion.value,
-      fecha_inicio: txtFechaInicio.value
-    }]);
+  try {
+    if (!txtEmpresa.value || !txtRepresentante.value || !txtCorreo.value) {
+      Swal.fire({
+        icon: "warning",
+        title: "Campos incompletos",
+        text: "Complete los campos obligatorios"
+      });
+      return;
+    }
 
-  if (error) {
+  
+    if (clienteEditandoId) {
+      const { error } = await supabase
+        .from("clientes")
+        .update({
+          nombre_empresa: txtEmpresa.value,
+          representante: txtRepresentante.value,
+          correo: txtCorreo.value,
+          telefono: txtTelefono.value
+        })
+        .eq("id", clienteEditandoId);
+
+      if (error) throw error;
+
+      Swal.fire({
+        icon: "success",
+        title: "Cliente actualizado",
+        text: "La información se registró correctamente",
+        timer: 1800,
+        showConfirmButton: false
+      });
+    }
+    
+    else {
+      const { error } = await supabase
+        .from("clientes")
+        .insert([{
+          nombre_empresa: txtEmpresa.value,
+          representante: txtRepresentante.value,
+          correo: txtCorreo.value,
+          telefono: txtTelefono.value
+        }]);
+
+      if (error) throw error;
+
+      Swal.fire({
+        icon: "success",
+        title: "Cliente guardado",
+        text: "La información se registró correctamente",
+        timer: 1800,
+        showConfirmButton: false
+      });
+    }
+
+    limpiarFormulario();
+    consultarClientes();
+
+  } catch (error) {
     console.error(error);
-    alert("Error al guardar cliente");
-    return;
-  }
 
-  alert("Cliente guardado correctamente");
-  limpiarFormulario();
-  consultarClientes();
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "No se pudo completar la operación",
+      confirmButtonText: "Aceptar"
+    });
+
+  } finally {
+    
+    btnAdd.disabled = false;
+  }
 }
+
+
 
 async function consultarClientes() {
   const search = txtSearch.value?.toLowerCase() || "";
 
-  let query = supabase.from("clientes").select("*").order("empresa");
+  let query = supabase.from("clientes").select("*").order("nombre_empresa");
 
   if (search) {
     query = query.or(
-      `empresa.ilike.%${search}%,representante.ilike.%${search}%`
+      `nombre_empresa.ilike.%${search}%,representante.ilike.%${search}%`
     );
   }
 
@@ -85,7 +128,14 @@ async function consultarClientes() {
 
   if (error) {
     console.error(error);
-    alert("Error al consultar clientes");
+    
+Swal.fire({
+      icon: "error",
+      title: "Error al consultar cliente",
+      text: "La información no se consultó",
+      confirmButtonText: "Aceptar"
+    });
+
     return;
   }
 
@@ -95,18 +145,29 @@ async function consultarClientes() {
 function renderClientes(clientes) {
   tbody.innerHTML = "";
 
+  if (!clientes || clientes.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align:center">
+          No hay clientes registrados
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+
   clientes.forEach(cliente => {
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
-      <td>${cliente.empresa}</td>
+      <td>${cliente.nombre_empresa}</td>
       <td>${cliente.representante}</td>
       <td>${cliente.correo}</td>
       <td>${cliente.telefono ?? ""}</td>
       <td>
-        <button class="btn btnEliminar" data-id="${cliente.id}">
-          Eliminar
-        </button>
+       <button class="btn btnEditar" data-id="${cliente.id}">Editar</button>
+        <button class="btn btnEliminar" data-id="${cliente.id}"> Eliminar</button>
       </td>
     `;
 
@@ -114,26 +175,69 @@ function renderClientes(clientes) {
   });
 }
 
+
 tbody.addEventListener("click", async (e) => {
-  if (!e.target.classList.contains("btnEliminar")) return;
 
-  const id = e.target.dataset.id;
+  if (e.target.classList.contains("btnEditar")) {
+    const id = e.target.dataset.id;
 
-  if (!confirm("¿Eliminar cliente?")) return;
+    const { data, error } = await supabase
+      .from("clientes")
+      .select("*")
+      .eq("id", id)
+      .single();
 
-  const { error } = await supabase
-    .from("clientes")
-    .delete()
-    .eq("id", id);
+    if (error) {
+      console.error(error);
+      
+Swal.fire({
+      icon: "error",
+      title: "Error al cargar cliente",
+      text: "La información no se cargó",
+      confirmButtonText: "Aceptar"
+    });
 
-  if (error) {
-    console.error(error);
-    alert("Error al eliminar cliente");
+      return;
+    }
+
+    // Cargar datos en el formulario
+    txtEmpresa.value = data.nombre_empresa;
+    txtRepresentante.value = data.representante;
+    txtCorreo.value = data.correo;
+    txtTelefono.value = data.telefono ?? "";
+
+    clienteEditandoId = data.id;
+    btnAdd.textContent = "Actualizar";
     return;
   }
 
-  consultarClientes();
+  if (e.target.classList.contains("btnEliminar")) {
+    const id = e.target.dataset.id;
+
+    if (!confirm("¿Eliminar cliente?")) return;
+
+    const { error } = await supabase
+      .from("clientes")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      console.error(error);
+      
+Swal.fire({
+      icon: "error",
+      title: "Error al eliminar cliente",
+      text: "La información no se eliminó",
+      confirmButtonText: "Aceptar"
+    });
+
+      return;
+    }
+
+    consultarClientes();
+  }
 });
+
 
 function limpiarFormulario() {
   txtEmpresa.value = "";
@@ -142,4 +246,6 @@ function limpiarFormulario() {
   txtTelefono.value = "";
   txtDireccion.value = "";
   txtFechaInicio.value = "";
+  clienteEditandoId = null;
+  btnAdd.textContent = "Guardar";
 }
