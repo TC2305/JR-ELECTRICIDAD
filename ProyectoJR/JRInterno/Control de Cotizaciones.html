@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JR Electricidad S.R.L</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+  <div class="banner">
+    <img src="JR.2.png" alt="Logo JR Servicios Eléctricos" class="img-logo">
+  </div>
+
+  <header>
+    <nav class="nav-back">
+      <ul class="nav-back">
+        <li class="menu-back">
+          <a href="index.html">Volver atrás</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <h3 style="text-align: center; margin-top: 30px;">
+      JR ELECTRICIDAD S.R.L – COTIZACIONES
+    </h3>
+
+    <div class="card">
+      <div class="form-grid">
+        <div class="field">
+          <label>Estado</label>
+          
+        <select id="selectEstado">
+        <option value="">Todos</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="enviada">Enviada</option>
+        <option value="aceptada">Aceptada</option>
+        <option value="rechazada_cliente">Rechazada por el cliente</option>
+      </select>
+
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-primary full" id="btnBuscar">
+          Consultar
+        </button>
+      </div>
+    </div>
+
+    <!-- CARD: TABLA -->
+    <div class="card">
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Servicio</th>
+              <th>Fecha solicitud</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyCotizaciones">
+            <!-- JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script type="module" src="./app_cotizaciones.js"></script>
+</body>
+</html>

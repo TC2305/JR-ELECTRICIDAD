@@ -1,0 +1,258 @@
+
+:root {
+  --primary: #003cff;
+  --primary-dark: #0010f3;
+  --accent: #ffb20b;
+  --bg-light: #f4f6fb;
+  --text-dark: #1a1a1a;
+  --success: #28a745;
+  --error: #dc3545;
+}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-light);
+  font-family: 'Arial', sans-serif;
+  color: var(--text-dark);
+}
+
+
+.btn {
+  background-color: #ffffff;
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 26px;
+  border: 2px solid var(--accent);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 60, 255, 0.15);
+  transition: all 0.25s ease;
+}
+
+.btn:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.05);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.img-logo {
+  max-height: 200px;
+}
+
+
+.title {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.6em;
+}
+
+.description {
+  font-size: 1em;
+  line-height: 1.4;
+  margin: 20px auto;
+  text-align: center;
+  max-width: 800px;
+}
+
+h2, h3 {
+  text-align: center;
+  font-size: 1.1em;
+  margin: 1em 0 0.3em;
+  font-weight: 600;
+}
+
+.metodos-pago,
+.JR-Servicios,
+.metodos-contacto,
+.JR-cotizaciones {
+  list-style: none;
+  padding: 0;
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+.metodos-pago li,
+.JR-Servicios li,
+.metodos-contacto li,
+.JR-cotizaciones li {
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  border-left: 6px solid var(--primary);
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  font-size: 1em;
+}
+
+.metodos-pago strong,
+.JR-Servicios strong {
+  color: var(--primary);
+}
+
+
+.nav-list {
+  list-style: none;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.menu-item a,
+.menu-back a {
+  display: inline-block;
+  padding: 10px 22px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--primary);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.menu-item a:hover,
+.menu-back a:hover {
+  background-color: var(--primary-dark);
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.nav-back {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+
+.banner {
+  background-color: var(--primary);
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+}
+
+
+.container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  margin: 25px 0;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+}
+
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+}
+
+.form-actions {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  text-align: left;
+}
+
+.factura-vencida {
+  background-color: rgba(255, 0, 0, 0.08);
+}
+
+.factura-vencida td {
+  color: #b00000;
+  font-weight: bold;
+}
+
+
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.popup-content {
+  background-color: #ffffff;
+  margin: 15% auto;
+  padding: 25px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  animation: pop 0.3s ease;
+}
+
+.popup-content.success {
+  border: 3px solid var(--success);
+  color: var(--success);
+}
+
+.popup-content.error {
+  border: 3px solid var(--error);
+  color: var(--error);
+}
+
+#popup-icon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
